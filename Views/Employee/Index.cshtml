@@ -1,0 +1,48 @@
+@model IEnumerable<MyMvcApp.ViewModels.EmployeeViewModel>
+
+<h2 class="font-bold mb-3 text-center mt-10">Employee List</h2>
+
+<form asp-action="Index" method="GET">
+    <div class="relative w-full p-3 my-3 flex justify-end gap-3">
+        <div class="relative">
+            <input name="search" type="text" class="w-[350px] p-2 border-1 rounded-xl border-gray-300 px-5" id="search">
+            <svg class="absolute left-3 top-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+            </svg>
+        </div>
+    </div>
+</form>
+
+<table class="w-full border">
+    <thead>
+        <tr>
+            <th class="border border-gray-300 p-2">Id</th>
+            <th class="border border-gray-300 p-2">Name</th>
+            <th class="border border-gray-300 p-2">Email</th>
+            <th class="border border-gray-300 p-2">Department</th>
+            <th class="border border-gray-300 p-2">Hire Date</th>
+            <th class="border border-gray-300 p-2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var employee in Model)
+        {
+            <tr>
+                <td class="border border-gray-300 p-2">@employee.Id</td>
+                <td class="border border-gray-300 p-2">@employee.Name</td>
+                <td class="border border-gray-300 p-2">@employee.Email</td>
+                <td class="border border-gray-300 p-2">@employee.Department</td>
+                <td class="border border-gray-300 p-2">@employee.HireDate</td>
+                <td class="border border-gray-300 p-2">
+                    <a asp-action="Edit" asp-route-id="@employee.Id"
+                        class="p-2 border border-gray-300 rounded-lg w-20 inline-block text-center">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@employee.Id"
+                        class="p-2 bg-red-400 text-white rounded-lg w-20 inline-block text-center">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
