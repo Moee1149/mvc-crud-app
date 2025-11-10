@@ -16,8 +16,8 @@ public class EmployeeController : Controller
     [HttpGet]
     public async Task<ActionResult> Index(string search)
     {
-
         List<EmployeeViewModel> employee = await _employeeService.GetAllEmployee(search);
+        ViewBag.SearchTerm = search;
         return View(employee);
     }
 

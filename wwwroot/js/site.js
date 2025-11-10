@@ -4,8 +4,19 @@
 // Write your JavaScript code.
 
 const search = document.getElementById("search");
-console.log(search);
+const form = document.getElementById("search-form");
+let debounceTimer;
+
+document.addEventListener("DOMContentLoaded", () => {
+  search.focus();
+  const length = search.value.length;
+  search.setSelectionRange(length, length);
+});
+
 search.addEventListener("input", (e) => {
-  const searchValue = e.target.value;
-  console.log(searchValue);
+  clearTimeout(debounceTimer);
+  debounceTimer = setTimeout(() => {
+    console.log("form submited");
+    form.submit();
+  }, 500);
 });

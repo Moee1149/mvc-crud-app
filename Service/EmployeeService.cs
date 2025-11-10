@@ -47,7 +47,14 @@ public class EmployeeService : IEmployeeService
 
     public async Task<List<EmployeeViewModel>> GetAllEmployee(string search = "")
     {
-        return await _context.Employees.Select(e => new EmployeeViewModel
+        var query = _context.Employees.AsQueryable();
+        if (!string.IsNullOrEmpty(search))
+        {
+            search = search.ToLower();
+            query = query.Where(e =>
+            e.Name.ToLower().Contains(search));
+        }
+        return await query.Select(e => new EmployeeViewModel
         {
             Id = e.Id,
             Name = e.Name,
@@ -66,7 +73,7 @@ public class EmployeeService : IEmployeeService
 
     public async Task<EmployeeViewModel> GetEmployeeById(int employeeId)
     {
-        Employee employee = _context.Employees.Find(employeeId) ?? new Employee { };
+        Employee employee = await _context.Employees.FindAsync(employeeId) ?? new Employee { };
         if (employee == null)
         {
             throw new Exception("employee not found");

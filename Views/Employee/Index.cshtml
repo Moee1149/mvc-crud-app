@@ -2,10 +2,11 @@
 
 <h2 class="font-bold mb-3 text-center mt-10">Employee List</h2>
 
-<form asp-action="Index" method="GET">
+<form asp-action="Index" method="GET" id="search-form">
     <div class="relative w-full p-3 my-3 flex justify-end gap-3">
         <div class="relative">
-            <input name="search" type="text" class="w-[350px] p-2 border-1 rounded-xl border-gray-300 px-5" id="search">
+            <input name="search" type="text" class="w-[350px] p-2 border-1 rounded-xl border-gray-300 px-5" id="search"
+                value="@ViewBag.SearchTerm" placeholder="Search By Name">
             <svg class="absolute left-3 top-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                 stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
