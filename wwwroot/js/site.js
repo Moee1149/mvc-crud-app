@@ -5,6 +5,7 @@
 
 const search = document.getElementById("search");
 const form = document.getElementById("search-form");
+const pageInput = document.getElementById("page-input");
 let debounceTimer;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -20,3 +21,8 @@ search.addEventListener("input", (e) => {
     form.submit();
   }, 500);
 });
+
+function changePage(pageNumber) {
+  pageInput.value = pageNumber;
+  form.submit();
+}

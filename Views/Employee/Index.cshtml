@@ -3,6 +3,7 @@
 <h2 class="font-bold mb-3 text-center mt-10">Employee List</h2>
 
 <form asp-action="Index" method="GET" id="search-form">
+    <input type="hidden" name="page" value="@ViewBag.CurrentPage" id="page-input">
     <div class="relative w-full p-3 my-3 flex justify-end gap-3">
         <div class="relative">
             <input name="search" type="text" class="w-[350px] p-2 border-1 rounded-xl border-gray-300 px-5" id="search"
@@ -47,3 +48,25 @@
         }
     </tbody>
 </table>
+
+<div class="mt-4 flex justify-center gap-1">
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <button class="bg-blue-500 text-white py-1 px-[12px]" onclick="changePage(@(ViewBag.CurrentPage - 1))">
+            Prev
+        </button>
+    }
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        <button type="button" onclick="changePage(@i)"
+            class="@(i == ViewBag.CurrentPage ? "bg-blue-700" : "bg-blue-500") text-white py-1 px-[12px] hover:bg-blue-600">
+            @i
+        </button>
+    }
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <button class="bg-blue-500 text-white py-1 px-[12px]" onclick="changePage(@(ViewBag.CurrentPage + 1))">
+            Next
+        </button>
+    }
+</div>

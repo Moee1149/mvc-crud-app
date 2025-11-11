@@ -14,9 +14,16 @@ public class EmployeeController : Controller
     }
     // GET: EmployeeController
     [HttpGet]
-    public async Task<ActionResult> Index(string search)
+    public async Task<ActionResult> Index(string search, int page = 1)
     {
-        List<EmployeeViewModel> employee = await _employeeService.GetAllEmployee(search);
+        int pageSize = 3;
+
+        var (employee, totalCount) = await _employeeService.GetAllEmployee(search, pageSize, page);
+        int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
+        ViewBag.CurrentPage = page;
+        ViewBag.TotalPages = totalPages;
+        ViewBag.PageSize = pageSize;
+        ViewBag.TotalCount = totalCount;
         ViewBag.SearchTerm = search;
         return View(employee);
     }

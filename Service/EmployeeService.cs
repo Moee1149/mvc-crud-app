@@ -45,7 +45,7 @@ public class EmployeeService : IEmployeeService
 
     }
 
-    public async Task<List<EmployeeViewModel>> GetAllEmployee(string search = "")
+    public async Task<(List<EmployeeViewModel>, int)> GetAllEmployee(string search = "", int pageSize = 3, int pageNumber = 1)
     {
         var query = _context.Employees.AsQueryable();
         if (!string.IsNullOrEmpty(search))
@@ -54,7 +54,14 @@ public class EmployeeService : IEmployeeService
             query = query.Where(e =>
             e.Name.ToLower().Contains(search));
         }
-        return await query.Select(e => new EmployeeViewModel
+
+        int totalCount = await query.CountAsync();
+
+        var employees = await query
+        .OrderBy(e => e.Id)
+        .Skip((pageNumber - 1) * pageSize)
+        .Take(pageSize)
+        .Select(e => new EmployeeViewModel
         {
             Id = e.Id,
             Name = e.Name,
@@ -62,6 +69,7 @@ public class EmployeeService : IEmployeeService
             Department = e.Department,
             HireDate = e.HireDate
         }).ToListAsync();
+        return (employees, totalCount);
     }
 
     public async Task UpdateEmployee(EmployeeViewModel employeeViewData)
