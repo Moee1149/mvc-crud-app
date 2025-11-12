@@ -6,6 +6,8 @@
 const search = document.getElementById("search");
 const form = document.getElementById("search-form");
 const pageInput = document.getElementById("page-input");
+const uploadform = document.getElementById("uploadForm");
+const fileInput = document.getElementById("fileInput");
 let debounceTimer;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -26,3 +28,11 @@ function changePage(pageNumber) {
   pageInput.value = pageNumber;
   form.submit();
 }
+
+fileInput.addEventListener("change", () => {
+  if (fileInput.files.length > 0) {
+    const file = fileInput.files[0];
+    console.log(file);
+    uploadform.submit();
+  }
+});

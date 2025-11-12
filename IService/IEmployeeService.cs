@@ -9,4 +9,5 @@ public interface IEmployeeService
     public Task UpdateEmployee(EmployeeViewModel employee);
     public Task DeleteEmployee(int employeeId);
     public Task<EmployeeViewModel> GetEmployeeById(int employeeId);
+    public Task UploadNewFile(IFormFile file);
 }

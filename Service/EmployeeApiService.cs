@@ -48,4 +48,23 @@ public class EmployeeApiService : IEmployeeService
         var resposne = await _httpClient.PutAsJsonAsync($"api/employee/edit", employee);
         resposne.EnsureSuccessStatusCode();
     }
+
+    public async Task UploadNewFile(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            throw new ArgumentException("File is required");
+        }
+
+        using var content = new MultipartFormDataContent();
+        using var fileStream = file.OpenReadStream();
+        using var streamContent = new StreamContent(fileStream);
+
+        streamContent.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(file.ContentType);
+
+        content.Add(streamContent, "file", file.FileName);
+
+        var response = await _httpClient.PostAsync("api/employee/upload", content);
+        response.EnsureSuccessStatusCode();
+    }
 }

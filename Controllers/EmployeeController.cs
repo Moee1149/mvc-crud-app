@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MyMvcApp.IService;
 using MyMvcApp.ViewModels;
@@ -44,10 +45,6 @@ public class EmployeeController : Controller
     public async Task<ActionResult> Edit(int id)
     {
         EmployeeViewModel employeeViewModel = await _employeeService.GetEmployeeById(id);
-        Console.WriteLine("name = " + employeeViewModel.Name);
-        Console.WriteLine("email = " + employeeViewModel.Email);
-        Console.WriteLine("department = " + employeeViewModel.Department);
-
         return View("Update", employeeViewModel);
     }
 
@@ -63,5 +60,21 @@ public class EmployeeController : Controller
     {
         await _employeeService.DeleteEmployee(id);
         return RedirectToAction(nameof(Index));
+    }
+
+    [HttpGet]
+    [Route("Employee/File")]
+    public IActionResult GetAllFile()
+    {
+        return View("FileView");
+    }
+
+    [HttpPost]
+    [Route("Employee/File/Upload")]
+    public async Task<IActionResult> UploadNewFile(IFormFile file)
+    {
+        await _employeeService.UploadNewFile(file);
+        Console.WriteLine("okay file uploaded");
+        return View("FileView");
     }
 }

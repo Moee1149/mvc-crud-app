@@ -1,0 +1,56 @@
+<h1 class="text-lg font-bold text-center mt-5">List of Files</h1>
+
+<div class="flex justify-between items-center p-3 my-3 flex">
+    <form asp-action="UploadNewFile" method="POST" enctype="multipart/form-data" id="uploadForm">
+        <input type="file" name="file" id="fileInput" hidden />
+        <button type="button" onClick="document.getElementById('fileInput').click()"
+            class="flex gap-2 bg-green-500 text-white font-semibold py-2 px-3 rounded-xl cursor-pointer hover:bg-green-600 transition-all">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" <svg
+                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-plus-icon lucide-plus">
+                <path d="M5 12h14" />
+                <path d="M12 5v14" />
+            </svg>
+            <span>Upload New File</span>
+        </button>
+    </form>
+    <form asp-action="Index" method="GET" id="search-form">
+        <div class="relative w-full">
+            <div class="relative">
+                <input name="search" type="text" class="w-[350px] p-2 border-1 rounded-xl border-gray-300 px-5"
+                    id="search" value="@ViewBag.SearchTerm" placeholder="Search By File Name">
+                <svg class="absolute left-3 top-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
+                    <path d="m21 21-4.34-4.34" />
+                    <circle cx="11" cy="11" r="8" />
+                </svg>
+            </div>
+        </div>
+    </form>
+</div>
+
+@* list of file *@
+<table class="w-full border">
+    <thead>
+        <tr>
+            <th class="border border-gray-300 p-2">File</th>
+            <th class="border border-gray-300 p-2">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @* @foreach (var file in Model) *@
+        @* { *@
+        @* <tr> *@
+        @* <td>@file.FileName</td> *@
+        @* <td class="border border-gray-300 p-2"> *@
+        @* <a asp-action="Edit" asp-route-id="@employee.Id"
+                        class="p-2 border border-gray-300 rounded-lg w-20 inline-block text-center">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@employee.Id"
+                        class="p-2 bg-red-400 text-white rounded-lg w-20 inline-block text-center">Delete</a> *@
+        @* </td> *@
+        @* </tr> *@
+        @* } *@
+    </tbody>
+</table>
