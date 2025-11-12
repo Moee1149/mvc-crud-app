@@ -1,15 +1,14 @@
-using MyMvcApp.Data;
-using Microsoft.EntityFrameworkCore;
 using MyMvcApp.IService;
 using MyMvcApp.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddHttpClient<IEmployeeService, EmployeeApiService>(client =>
+{
+    client.BaseAddress = new Uri("http://localhost:5149"); // Replace with your API URL
+    client.DefaultRequestHeaders.Add("Accept", "application/json");
+});
 builder.Services.AddControllersWithViews();
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 
 // Add services to the container.
 var app = builder.Build();

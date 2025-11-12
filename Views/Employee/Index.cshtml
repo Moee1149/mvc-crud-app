@@ -2,22 +2,35 @@
 
 <h2 class="font-bold mb-3 text-center mt-10">Employee List</h2>
 
-<form asp-action="Index" method="GET" id="search-form">
-    <input type="hidden" name="page" value="@ViewBag.CurrentPage" id="page-input">
-    <div class="relative w-full p-3 my-3 flex justify-end gap-3">
-        <div class="relative">
-            <input name="search" type="text" class="w-[350px] p-2 border-1 rounded-xl border-gray-300 px-5" id="search"
-                value="@ViewBag.SearchTerm" placeholder="Search By Name">
-            <svg class="absolute left-3 top-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
-                <path d="m21 21-4.34-4.34" />
-                <circle cx="11" cy="11" r="8" />
-            </svg>
+<div class="flex justify-between items-center p-3 my-3 flex">
+    <a asp-action="Create"
+        class="flex gap-2 bg-green-500 text-white font-semibold py-2 px-3 rounded-xl cursor-pointer hover:bg-green-600 transition-all">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-plus-icon lucide-plus">
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+        </svg>
+        <span>Add New Employee</span>
+    </a>
+    <form asp-action="Index" method="GET" id="search-form">
+        <input type="hidden" name="page" value="@ViewBag.CurrentPage" id="page-input">
+        <div class="relative w-full">
+            <div class="relative">
+                <input name="search" type="text" class="w-[350px] p-2 border-1 rounded-xl border-gray-300 px-5"
+                    id="search" value="@ViewBag.SearchTerm" placeholder="Search By Name">
+                <svg class="absolute left-3 top-2" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="lucide lucide-search-icon lucide-search">
+                    <path d="m21 21-4.34-4.34" />
+                    <circle cx="11" cy="11" r="8" />
+                </svg>
+            </div>
         </div>
-    </div>
-</form>
+    </form>
 
+
+</div>
 <table class="w-full border">
     <thead>
         <tr>

@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using MyMvcApp.IService;
-using MyMvcApp.Models;
 using MyMvcApp.ViewModels;
 
 namespace MyMvcApp.Controllers;
@@ -16,9 +15,7 @@ public class EmployeeController : Controller
     [HttpGet]
     public async Task<ActionResult> Index(string search, int page = 1)
     {
-        int pageSize = 3;
-
-        var (employee, totalCount) = await _employeeService.GetAllEmployee(search, pageSize, page);
+        var (employee, totalCount, pageSize) = await _employeeService.GetAllEmployee(search, page);
         int totalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
         ViewBag.CurrentPage = page;
         ViewBag.TotalPages = totalPages;
@@ -47,6 +44,10 @@ public class EmployeeController : Controller
     public async Task<ActionResult> Edit(int id)
     {
         EmployeeViewModel employeeViewModel = await _employeeService.GetEmployeeById(id);
+        Console.WriteLine("name = " + employeeViewModel.Name);
+        Console.WriteLine("email = " + employeeViewModel.Email);
+        Console.WriteLine("department = " + employeeViewModel.Department);
+
         return View("Update", employeeViewModel);
     }
 
