@@ -64,9 +64,11 @@ public class EmployeeController : Controller
 
     [HttpGet]
     [Route("Employee/File")]
-    public IActionResult GetAllFile()
+    public async Task<IActionResult> GetAllFile()
     {
-        return View("FileView");
+        var files = await _employeeService.GetAllFiles();
+        Console.WriteLine("files" + files);
+        return View("FileView", files);
     }
 
     [HttpPost]
@@ -75,6 +77,16 @@ public class EmployeeController : Controller
     {
         await _employeeService.UploadNewFile(file);
         Console.WriteLine("okay file uploaded");
-        return View("FileView");
+        return RedirectToAction(nameof(GetAllFile));
     }
+
+    [HttpGet]
+    [Route("Employee/File/Download")]
+    public async Task<IActionResult> DownloadFile(string fileName)
+    {
+        Console.WriteLine("file name " + fileName);
+        var fileBytes = await _employeeService.DownloadFile(fileName);
+        return File(fileBytes, "application/octet-stream", fileName);
+    }
+
 }

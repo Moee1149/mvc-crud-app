@@ -35,6 +35,15 @@ public class EmployeeApiService : IEmployeeService
         );
     }
 
+    public async Task<List<string>> GetAllFiles()
+    {
+        var response = await _httpClient.GetAsync($"api/employee/files");
+        response.EnsureSuccessStatusCode();
+
+        var result = await response.Content.ReadFromJsonAsync<EmployeeApiRepsonseViewModel<List<string>>>();
+        return result!.Data;
+    }
+
     public async Task<EmployeeViewModel> GetEmployeeById(int employeeId)
     {
         var response = await _httpClient.GetAsync($"api/employee/user/{employeeId}");
@@ -66,5 +75,12 @@ public class EmployeeApiService : IEmployeeService
 
         var response = await _httpClient.PostAsync("api/employee/upload", content);
         response.EnsureSuccessStatusCode();
+    }
+
+    public async Task<byte[]> DownloadFile(string fileName)
+    {
+        var response = await _httpClient.GetAsync($"api/employee/download/{fileName}");
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadAsByteArrayAsync();
     }
 }

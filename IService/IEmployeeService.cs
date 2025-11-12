@@ -10,4 +10,6 @@ public interface IEmployeeService
     public Task DeleteEmployee(int employeeId);
     public Task<EmployeeViewModel> GetEmployeeById(int employeeId);
     public Task UploadNewFile(IFormFile file);
+    public Task<byte[]> DownloadFile(string fileName);
+    public Task<List<string>> GetAllFiles();
 }
